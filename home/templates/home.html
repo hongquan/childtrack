@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Hello {{ request.user }}</h1>
+  <div>
+    {% for child in children %}
+      {{ child }}
+      <ul>
+        {% for act in child.activity_set.all %}
+          {% if act.present %}
+            <li>Present: {{ act.present|yesno:'Yes,No' }} at {{ act.date_present }}</li>
+          {% else %}
+            <li>Present: {{ act.present|yesno:'Yes,No' }} at {{ act.date_created }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  </div>
+{% endblock %}
